@@ -1,0 +1,11 @@
+# Base deps (install PyTorch first; see install.md)
+# Tested with torch 2.8.0 + CUDA 12.8 on H100 and A6000
+transformers==4.52.4
+loguru
+sentencepiece
+protobuf
+accelerate
+pillow
+einops
+requests
+open_clip_torch
