@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mmtok"
+version = "1.0.0"
+description = "GOTS: Greedy Orthogonal Token Selection for High-Resolution Vision-Language Models"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "Apache-2.0" }
+authors = [
+    { name = "Jun Ling", email = "cs.lingjun@gmail.com" },
+]
+dependencies = [
+    "transformers==4.52.4",
+    "loguru",
+    "sentencepiece",
+    "protobuf",
+    "accelerate",
+    "pillow",
+    "einops",
+    "requests",
+    "open_clip_torch",
+]
+
+[tool.setuptools.package-dir]
+mmtok = "gots"

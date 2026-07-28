@@ -1,12 +1,11 @@
 
 
-from .llava import mmtok, apply_llava_patches
+"""MMTok / GOTS package root.
 
-# Patch llava.mm_utils.process_images at import time so that code which does
-# "import mmtok" before "from llava.mm_utils import process_images" (or
-# process_images = llava_mm_utils.process_images) gets the patched version.
-# Padding indices are only computed when mmtok(model) is called with LLaVA-1.5.
-apply_llava_patches()
+This package exposes the GOTS visual-token selector and the Qwen2.5-VL
+integration. LLaVA integration is not included in this release.
+"""
 
 __version__ = "1.0.0"
-__all__ = ["mmtok", "apply_llava_patches"]
+
+__all__ = ["__version__"]
