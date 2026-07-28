@@ -136,6 +136,23 @@ Performance retention on **Qwen2.5-VL-7B-Instruct** under native dynamic resolut
 
 GOTS also transfers across **Qwen2-VL-7B**, **Qwen3-VL-8B**, **Qwen3-VL-32B**, and **InternVL3.5-8B**, with average-retention gains over MMTok widening under more aggressive compression.
 
+### Cross-Architecture Generalization
+
+The figure below compares GOTS (red) against the strongest baseline MMTok (blue) at **5% token retention** across five high-resolution VLMs. Each radar chart reports benchmark-wise performance retention; the outer dashed ring is the 100% full-token baseline.
+
+![Cross-architecture performance retention](Figure/result_model_family.png)
+
+At 5% retention, GOTS consistently improves average retention across all evaluated backbones, with margins of **8.4–11.7 percentage points** over MMTok:
+
+| Backbone | GOTS (5%) | MMTok (5%) | Δ |
+|----------|:---------:|:----------:|:-:|
+| InternVL3.5-8B | 88.9 | 80.5 | **+8.4** |
+| Qwen3-VL-8B | 92.5 | 81.7 | **+10.8** |
+| Qwen2-VL-7B | 90.2 | 79.0 | **+11.2** |
+| Qwen3-VL-32B | 94.2 | 82.5 | **+11.7** |
+
+The largest gains appear on text-intensive tasks such as **OCRBench** and **TextVQA**, indicating that the selected-span complementarity principle is especially effective when aggressive compression must preserve fine-grained visual and textual evidence. Note that the left panel aggregates results across the model family; the right panels show per-model benchmark breakdowns (b–e). InternVL3.5-8B uses its native dynamic-tiling protocol; the Qwen backbones use controlled fixed-resolution inputs in this comparison.
+
 ### Efficiency
 
 On OCRBench with Qwen2.5-VL-7B (fixed resolution, ~2,094 visual tokens/image):
@@ -167,7 +184,8 @@ On OCRBench with Qwen2.5-VL-7B (fixed resolution, ~2,094 visual tokens/image):
 ├── requirements.txt               # Python dependencies
 ├── run_qwen2_5_vl_gots_eval.sh   # 11-benchmark evaluation script
 └── Figure/
-    └── method.png                 # Method overview figure
+    ├── method.png                 # Method overview figure
+    └── result_model_family.png    # Cross-architecture performance retention
 ```
 
 ---
