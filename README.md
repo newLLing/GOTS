@@ -10,6 +10,8 @@ Official PyTorch implementation of **GOTS** ([arXiv:2607.23913](https://arxiv.or
 
 Modern high-resolution VLMs (e.g., Qwen-VL, InternVL) generate thousands of visual tokens per image, which causes quadratic self-attention cost and high prefill latency. GOTS compresses the visual sequence **before** it enters the LLM, using only vision-encoder features. It is **training-free** and **query-agnostic**, so no fine-tuning or text-prompt access is required.
 
+This repository is built on top of the **[MMTok](https://github.com/Ironieser/MMTok)** framework: GOTS is implemented as an alternative `selector_type` backend alongside the original MMTok semantic coverage selector. The included `semantic` selector therefore reproduces the MMTok baseline, while `gots` enables the greedy orthogonal selection proposed in the paper.
+
 ### Method
 
 Given `N` vision-feature rows `X ∈ R^{N×d}`, GOTS selects a budget `K ≪ N` by:
@@ -18,11 +20,9 @@ Given `N` vision-feature rows `X ∈ R^{N×d}`, GOTS selects a budget `K ≪ N` 
 2. Greedy selection: at each step, pick the token with the maximum residual energy `‖r_i‖²`.
 3. Update all remaining residuals by orthogonal projection onto the new basis direction.
 
-Proposition 1 in the paper shows that this rule is equivalent to applying QRCP on `X^T` and that it exactly maximizes the one-step augmented Gram determinant:
+Proposition 1 in the paper shows that this rule is equivalent to applying QRCP on $X^\top$ and that it exactly maximizes the one-step augmented Gram determinant:
 
-```
-det(X_{S∪{j}} X_{S∪{j}}^T) = det(X_S X_S^T) · e_j
-```
+$$\det(X_{S\cup \{j\}} X_{S\cup \{j\}}^\top) = \det(X_S X_S^\top) \cdot e_j$$
 
 ![Method overview](Figure/method.png)
 
@@ -207,4 +207,8 @@ If you find GOTS useful for your research, please consider citing:
 
 ## Acknowledgements
 
-This repository builds on [lmms-eval](https://github.com/EvolvingLMMs-Lab/lmms-eval) for benchmarking and the Qwen-VL model family.
+This repository is built on top of the following projects:
+
+- **[MMTok](https://github.com/Ironieser/MMTok)** – the visual-token reduction framework that provides the model hooks, semantic coverage selector, and evaluation integration used in this work.
+- **[lmms-eval](https://github.com/EvolvingLMMs-Lab/lmms-eval)** – the evaluation framework for benchmarking high-resolution VLMs.
+- The **Qwen-VL** and **InternVL** model families for the high-resolution vision-language backbones.
