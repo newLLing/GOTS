@@ -14,15 +14,15 @@ This repository is built on top of the **[MMTok](https://github.com/Ironieser/MM
 
 ### Method
 
-Given `N` vision-feature rows `X ∈ R^{N×d}`, GOTS selects a budget `K ≪ N` by:
+Given $N$ vision-feature rows $X \in \mathbb{R}^{N \times d}$, GOTS selects a budget $K \ll N$ by:
 
 1. Maintaining the residual component of each feature outside the span of already-selected tokens.
-2. Greedy selection: at each step, pick the token with the maximum residual energy `‖r_i‖²`.
+2. Greedy selection: at each step, pick the token with the maximum residual energy $\|r_i\|^2$.
 3. Update all remaining residuals by orthogonal projection onto the new basis direction.
 
 Proposition 1 in the paper shows that this rule is equivalent to applying QRCP on $X^\top$ and that it exactly maximizes the one-step augmented Gram determinant:
 
-$$\det(X_{S\cup \{j\}} X_{S\cup \{j\}}^\top) = \det(X_S X_S^\top) \cdot e_j$$
+$$\det(X_{S\cup \lbrace j \rbrace} X_{S\cup \lbrace j \rbrace}^\top) = \det(X_S X_S^\top) \cdot e_j$$
 
 ![Method overview](Figure/method.png)
 
