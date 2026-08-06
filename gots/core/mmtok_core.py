@@ -174,7 +174,7 @@ class MMTokCore:
 
         return selected_tokens_batch, selected_indices_list
 
-    def apply_selection_preprocess_qwen(self, image_embeds, image_features, question_text, target_vision_tokens=None):
+    def apply_selection_preprocess_qwen(self, image_embeds, image_features, question_text, target_vision_tokens=None, image_grid_thw=None):
         """
         Coverage-based subset selection for Qwen2.5-VL: select vision tokens
         to cover text (question only, or question+answer if provided) and vision set. Single-sample path.
@@ -185,6 +185,8 @@ class MMTokCore:
             question_text: Question string
             answer_text: Optional answer text (for compatibility; when no scout, use question only)
             target_vision_tokens: Target subset size (uses self.token_selector.target_vision_tokens if None)
+            image_grid_thw: Optional [num_images, 3] grid shapes (accepted for interface
+                compatibility with per-image wrappers; currently unused)
 
         Returns:
             selected_indices: Indices of selected vision tokens
